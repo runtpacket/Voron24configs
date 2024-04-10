@@ -34,10 +34,6 @@ mainsail_folder=~/mainsail
 ### By default that is 'main'
 branch=main
 
-### Set this to true if you want ONLY the history table to be dumped
-### from data.mdb.
-history_only=false
-
 #####################################################################
 #####################################################################
 
@@ -67,24 +63,6 @@ grab_version(){
     m4="Fluidd version: $fluidd_ver"
   fi
 }
-
-# Here we dump stats database to text format for backup, IF the right software is found
-# To RESTORE the database, use the following command:
-# mdb_load -f ~/printer_data/config/data.mdb.backup -s -T ~/printer_data/database/
-
-if command -v /usr/bin/mdb_dump &> /dev/null
-then
-    if $history_only
-    then
-        echo "mdb_dump found! Exporting history table from data.mdb to ~/printer_data/config/data.mdb.backup"
-        mdb_dump -s history -n ~/printer_data/database/data.mdb -f ~/printer_data/config/data.mdb.backup
-    else
-        echo "mdb_dump found! Exporting ALL tables data.mdb to ~/printer_data/config/data.mdb.backup"
-        mdb_dump -a -n ~/printer_data/database/data.mdb -f ~/printer_data/config/data.mdb.backup
-    fi
-else
-    echo "mdb_dump not found! Consider installing it via 'sudo apt install lmdb-utils' if you want to back up your statistics database!"
-fi
 
 # To fully automate this and not have to deal with auth issues, generate a legacy token on Github
 # then update the command below to use the token. Run the command in your base directory and it will

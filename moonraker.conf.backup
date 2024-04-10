@@ -52,15 +52,15 @@ channel: stable
 repo: mainsail-crew/mainsail
 path: ~/mainsail
 
-[include octoeverywhere-system.cfg]
+[include ./configs/octoeverywhere-system.cfg]
 
-[update_manager klipper_auto_tap]
-type: git_repo
-path: ~/klipper_auto_tap
-origin: https://github.com/anonoei/klipper_auto_tap.git
-primary_branch: main
-install_script: install.sh
-managed_services: klipper
+#[update_manager klipper_auto_tap]
+#type: git_repo
+#path: ~/klipper_auto_tap
+#origin: https://github.com/anonoei/klipper_auto_tap.git
+#primary_branch: main
+#install_script: install.sh
+#managed_services: klipper
 
 [update_manager led_effect]
 type: git_repo
@@ -68,4 +68,48 @@ path: ~/klipper-led_effect
 origin: https://github.com/julianschill/klipper-led_effect.git
 is_system_service: False
 
+[spoolman]
+server: http://192.168.1.49:7912
+#   URL to the Spoolman instance. This parameter must be provided.
+sync_rate: 5
+#   The interval, in seconds, between sync requests with the
+#   Spoolman server.  The default is 5.
 
+# Crowsnest update_manager entry
+[update_manager crowsnest]
+type: git_repo
+path: ~/crowsnest
+origin: https://github.com/mainsail-crew/crowsnest.git
+managed_services: crowsnest
+install_script: tools/pkglist.sh
+
+## Klippain Shake&Tune automatic update management
+[update_manager Klippain-ShakeTune]
+type: git_repo
+origin: https://github.com/Frix-x/klippain-shaketune.git
+path: ~/klippain_shaketune
+virtualenv: ~/klippain_shaketune-env
+requirements: requirements.txt
+system_dependencies: system-dependencies.json
+primary_branch: main
+managed_services: klipper
+
+[update_manager klipper_auto_speed]
+type: git_repo
+path: ~/klipper_auto_speed
+origin: https://github.com/anonoei/klipper_auto_speed.git
+primary_branch: main
+install_script: install.sh
+managed_services: klipper
+
+[update_manager mobileraker]
+type: git_repo
+path: /home/runtpacket/mobileraker_companion
+origin: https://github.com/Clon1998/mobileraker_companion.git
+primary_branch:main
+managed_services: mobileraker
+env: /home/runtpacket/mobileraker-env/bin/python
+requirements: scripts/mobileraker-requirements.txt
+install_script: scripts/install.sh
+
+[include octoeverywhere-system.cfg]
