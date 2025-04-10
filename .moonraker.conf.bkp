@@ -5,6 +5,9 @@ klippy_uds_address = /home/runtpacket/printer_data/comms/klippy.sock
 
 [authorization]
 trusted_clients = 
+	100.72.213.82
+	100.69.217.66
+	100.99.10.0/24
 	10.0.0.0/8
 	127.0.0.0/8
 	169.254.0.0/16
@@ -122,4 +125,14 @@ requirements = requirements.txt
 install_script = install.sh
 managed_services = 
 	moonraker-obico
+
+[update_manager afc-software]
+type = git_repo
+path = ~/AFC-Klipper-Add-On
+origin = https://github.com/ArmoredTurtle/AFC-Klipper-Add-On.git
+managed_services = klipper
+primary_branch = main
+is_system_service = False
+info_tags = 
+	desc=AFC Klipper Add On
 
